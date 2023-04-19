@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend/
+    ports:
+      - 8080:80
+    networks:
+      - frontend_network
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend/
+    networks:
+      - frontend_network
+      - backend_network
+
+  database:
+    container_name: database
+    image: mongo
+    networks:
+      - backend_network
+
+networks:
+  frontend_network:
+    driver: bridge
+  backend_network:
+    driver: bridge
