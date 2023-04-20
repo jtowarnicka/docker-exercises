@@ -6,17 +6,13 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://backend/workers")
+      .get("/backend/workers")
       .then((response) => {
         setStaff(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    axios.get("http://backend").then((response) => {
-      console.log(response.data);
-    });
   }, []);
 
   return (

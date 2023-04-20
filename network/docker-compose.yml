@@ -1,14 +1,12 @@
 version: "3.8"
 
 services:
-  frontend:
-    container_name: frontend
+  database:
+    container_name: database
     build:
-      context: ./frontend/
-    ports:
-      - 8080:80
+      context: ./database/
     networks:
-      - frontend_network
+      - backend_network
 
   backend:
     container_name: backend
@@ -18,11 +16,14 @@ services:
       - frontend_network
       - backend_network
 
-  database:
-    container_name: database
-    image: mongo
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend/
+    ports:
+      - 8080:80
     networks:
-      - backend_network
+      - frontend_network
 
 networks:
   frontend_network:
