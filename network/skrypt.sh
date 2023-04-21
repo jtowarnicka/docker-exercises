@@ -15,8 +15,8 @@ docker build -t backend ./backend
 docker build -t frontend ./frontend
 
 # run containers and connect them to networks
-docker run -d --name backend --network backend backend
+docker run -d --name backend --network backend --network-alias backend backend
 docker run -d --name database --network backend --network-alias database database
 docker network connect frontend backend
-docker run -d --name frontend --network frontend -p 8080:80 --network-alias backend frontend
+docker run -d --name frontend --network frontend -p 8080:80 --network-alias frontend frontend
 
