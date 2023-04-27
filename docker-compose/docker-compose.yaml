@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  database:
+    container_name: mongodb
+    restart: always
+    image: mongo:${MONGO_VERSION}
+    ports:
+      - "${MONGO_PORT}:27017"
+    volumes:
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+    networks:
+      - net_A
+
+  backend:
+    container_name: server
+    image: justynat/flask-api
+    ports:
+      - "3003:3001"
+    depends_on:
+      - database
+    networks:
+      - net_A
+
+networks:
+  net_A:
+    driver: bridge
